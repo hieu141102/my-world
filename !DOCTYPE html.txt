@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Ảnh</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; }
+        h1 { color: blue; }
+        #preview { margin-top: 20px; max-width: 100%; height: auto; }
+        #info { margin-top: 10px; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <h1>Tải ảnh lên</h1>
+    <input type="file" id="fileInput" accept="image/*">
+    <br>
+    <input type="text" id="imageName" placeholder="Nhập tên ảnh">
+    <br>
+    <img id="preview" src="" alt="Ảnh xem trước" style="display: none;">
+    <p id="info"></p>
+    
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('preview');
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+                
+                // Hiển thị thông tin ngày giờ upload
+                const now = new Date();
+                const formattedDate = now.toLocaleString('vi-VN');
+                document.getElementById('info').innerText = `Ngày giờ upload: ${formattedDate}`;
+            }
+        });
+    </script>
+</body>
+</html>
